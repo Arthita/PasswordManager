@@ -3,7 +3,10 @@ from random import randint
 import tkinter
 from tkinter import messagebox
 import json
+import os 
 BGCOLOR = '#FFEEAD'
+
+DIR=os.path.dirname(__file__)
 
 
 def generate_password():
@@ -40,14 +43,14 @@ def save_details():
     ), message=f'Details entered:\n{email1.get()}\n{password1.get()}\nIs it ok to save?')
     if flag:
         try:
-            with open('C:/Users/Arthita/OneDrive/Desktop/Python files/new_project3/passwordManager/details.json', 'r') as file:
+            with open((f'{DIR}\details.json'), 'r') as file:
                 data = json.load(file)
                 data.update(new_dict)
         except:
-            with open('C:/Users/Arthita/OneDrive/Desktop/Python files/new_project3/passwordManager/details.json', 'w') as file:
+            with open((f'{DIR}\details.json'), 'w') as file:
                 json.dump(new_dict, file, indent=4)
         else:
-            with open('C:/Users/Arthita/OneDrive/Desktop/Python files/new_project3/passwordManager/details.json', 'w') as file:
+            with open((f'{DIR}\details.json'), 'w') as file:
                 json.dump(data, file, indent=4)
         website1.delete(0, tkinter.END)
         password1.delete(0, tkinter.END)
@@ -55,7 +58,7 @@ def save_details():
 
 def search():
     try:
-        with open('C:/Users/Arthita/OneDrive/Desktop/Python files/new_project3/passwordManager/details.json') as file:
+        with open((f'{DIR}\details.json')) as file:
             data = json.load(file)
     except:
         messagebox.showinfo(
@@ -77,7 +80,7 @@ window.title('Password Manager')
 canvas = tkinter.Canvas(height=200, width=200,
                         highlightthickness=0, bg=BGCOLOR)
 img = tkinter.PhotoImage(
-    file='C:/Users/Arthita/OneDrive/Desktop/Python files/new_project3/passwordManager/logo.png')
+    file=(f'{DIR}\logo.png'))
 canvas.create_image(100, 100, image=img)
 canvas.grid(column=1, row=0)
 website = tkinter.Label(text='Website', bg=BGCOLOR)
